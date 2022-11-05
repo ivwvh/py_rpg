@@ -1,4 +1,14 @@
-import os
+import os  
+
+
+def buy_potions(player_potion):
+    return player_potion + 1
+
+def pay(player_money):
+    return player_money - 10
+   
+
+
 def shop(player_money, player_name, player_hp, player_xp, player_potion):
     os.system("cls")
     in_shop = True
@@ -15,12 +25,21 @@ def shop(player_money, player_name, player_hp, player_xp, player_potion):
             2 - Поехать к камню
                 """)
         answer = input("")
-        if answer == "1":
-            player_money -= 10
-            player_potion += 1
+        if answer == "1" and player_money > 0:
+            player_potion = buy_potions(player_potion)
+            player_money = pay(player_money)
             print("Купил одно зелье")
             os.system("cls")
-
+            
+        elif answer == "1" and player_money <= 0:
+            print("Нет денег")
+            
         elif answer == "2":
             print("Поехал к камню")
-            break
+            in_shop = False
+
+
+
+
+
+            

@@ -1,8 +1,8 @@
 import os
 import shop #импортируем shop.py
-import shaman
-import battle
-import random
+import shaman #импортируем shaman.py
+import battle #импортируем battle.py
+import random #импортируем модуль random
 
 
 
@@ -33,13 +33,13 @@ def show_menu():
 
 
 def create_char():
-    """
+    '''
      создает персонажа:
         player_money-деньги,
         player_name-имя
-        player_hp-жизни, >= 0 иначе проигрыш
+        player_hp-жизни, >= 0 иначе проигрышь
         player_xp-опыт, изначально 0
-     """
+    '''
     player_money = 100
     player_name = input("Введите имя")
     if not player_name:
@@ -55,6 +55,7 @@ def create_char():
 def start_game(player_money,player_name,player_hp, player_xp, player_potion, player_damage):
     '''
     начинает игру
+    принимает значения из create_char
     '''
 
     #цикл игры
@@ -66,7 +67,7 @@ def start_game(player_money,player_name,player_hp, player_xp, player_potion, pla
         print(f"Опыт: {player_xp}")
         print(f"Деньги: {player_money}")
         print(f"Урон: {player_damage}")
-        print(f"Зелья: {player_potion}")
+        print(f"Зелья {player_potion}")
         input("Нажмите ENTER для продолжения")
         os.system("cls")
         print(f"""
