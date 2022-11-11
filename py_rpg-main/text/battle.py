@@ -2,7 +2,7 @@ import os
 import random
 
 
-def encounter(player_money, player_name, player_hp, player_xp, player_potion, player_damage):
+def encounter(player):
     in_battle = True
     robber_name = "Test"
     robber_hp = 20

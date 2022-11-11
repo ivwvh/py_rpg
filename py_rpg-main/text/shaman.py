@@ -1,6 +1,6 @@
 import random
 import os
-def shaman_game(player_money, player_name, player_hp, player_xp, player_potion):
+def shaman_game(player):
     tries = 5
     shaman_event = True
     shamans_number = random.randint(1, 5)
