@@ -2,6 +2,7 @@ import os
 import shop #импортируем shop.py
 import shaman #импортируем shaman.py
 import battle #импортируем battle.py
+import hero_engine
 import random #импортируем модуль random
 
 
@@ -24,7 +25,7 @@ def show_menu():
         print("2-Выйти")
         answer = input("Номер ответа: ")
         if answer == "1":
-            make_hero()
+            create_heroes()
             break
         elif answer == "2":
             print('Выхожу')
@@ -34,13 +35,13 @@ def show_menu():
 
 
 
+def create_heroes():
+    player = hero_engine.main_char()
+    enemy = hero_engine.make_enemy()
+    start_game(player,enemy)
 
-def create_main_char():
-    input
 
-
-
-def start_game(player):
+def start_game(player, enemy):
     '''
     начинает игру
     принимает значения из create_char
@@ -67,11 +68,11 @@ def start_game(player):
         choice = input("Куда поедем ?: ")
         if choice == "1":
             print("Поехал к разбойникам")
-            battle.encounter(player)
+            player = battle.encounter(player, enemy)
 
         elif choice == "2":
             print("Поехал к шаману")
-            shaman.shaman_game(player)
+            player = shaman.shaman_game(player)
 
         elif choice == "3":
             print("Поехал к алхимику")

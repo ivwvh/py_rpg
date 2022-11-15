@@ -1,12 +1,23 @@
 import os
 import random
+import hero_engine
 
 
-def encounter(player):
+
+# name, hp, xp, money, damage, potion
+def encounter(player, enemy):
     in_battle = True
-    robber_name = "Test"
-    robber_hp = 20
-    robber_damage = random.randint(1,5)
+    robber_name = enemy[0]
+    robber_hp = enemy[1]
+    robber_damage = enemy[4]
+    player_name = player[0]
+    player_hp = player[1]
+    player_xp = player[2]
+    player_damage = player[4]
+    player_potion = player[5]
+    
+    
+
     print(f"{player_name} подезжает к лагерю разбойников")
     while in_battle:
         print(f"Вас встретил {robber_name} ")
@@ -28,13 +39,18 @@ def encounter(player):
                 if player_hp == 0 or player_hp < 0:
                     input("Вы проиграли")
                     break
+                #player_name, player_hp, player_xp, player_money, player_damage, player_potion
 
                 if robber_hp == 0 or robber_hp < 0:
-                    input("Вы победили")
-                    break
-        elif choice_1 == "2":
+                    player_xp += 10
+                    print("Вы победили и получили 10 опыта")
+                    input("Нажмите ENTER чтобы продолжить")
+                    return player[0], player_hp, player_xp, player[3], player[4], player_potion
+        elif choice_1 == "2" and player_potion > 0:
                 player_potion -= 1
                 player_hp += 15
                 print("Использовал зелье и восстановил 15 жизней")
                 input("Нажмите ENTER что бы продолжить")
-        
+        elif choice_1 == "2" and player_potion < 0:
+            print("недостаточно зелий")
+            input("Нажмите ENTER что бы продолжить")
