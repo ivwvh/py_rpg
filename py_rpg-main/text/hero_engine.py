@@ -1,34 +1,39 @@
 from random import randint, choice
+from os import system
 
 first_name = ("Жран", "Дрын", "Бряк", "Брысь")
 last_name = ("Борзой", "Злобный","Лютый","Зловонный")
 """
-TODO:сделать цикл повышения уровня пока текущий опыт превышает нужный для повышения
+TODO:сделать цикл повышения уровня пока текущий опыт превышает нужный для повышения -done-
 выбрать какие статы повышать при повышении уровня
 """
 '''
-[0]name=None,
-[1]hp_max = None,
-[2]hp_curr = None,
-[3]xp_now = 0,
-[4]xp_next = None,
-[5]lvl = 1,
-[6]money = None,
-[7]damage=None,
-[8]potion=None,
+[0]name - имя,
+[1]hp_max - максимальное кол-во жизней,
+[2]hp_curr- текущее кол-во жизней,
+[3]xp_now - текущий опыт,
+[4]xp_next - опыта до след. уровня,
+[5]lvl - текущий уровень,
+[6]knowleage_points - очки мудрости, выдаются при повышении уровня и используются для изменения параметров,
+[7]money - деньги,
+[8]damage - урон,
+[9]potion - зелья,
 
 '''
-
+#функция генератор героев
 def make_hero(name=None,
     hp_max = None,
     hp_curr = None,
     xp_now = 0,
     xp_next = None,
     lvl = 1,
+    knowleage_points = 0,
     money = None,
     damage=None,
     potion=None,
-    inventory = None)->tuple:
+    inventory = None,
+    armor = None,
+    sword = None)->list:
 
     if not name:
         name = choice(first_name) + " " + choice(last_name)
@@ -49,32 +54,54 @@ def make_hero(name=None,
     if not inventory:
         inventory = []
 
-    hero = [name, hp_max, hp_curr, xp_now, xp_next, lvl, money, damage, potion, inventory]
+    hero = [name, hp_max, hp_curr, xp_now, xp_next, lvl, knowleage_points, money, damage, potion, inventory]
     return hero
 
-
+#функция показа героев
 def show_hero(hero):
     print("Имя", hero[0])
     print("Жизней сейчас:", hero[2], "из", hero[1] )
     print("Xp сейчас: ", hero[3], "из", hero[4])
     print("Уровень", hero[5])
-    print("Денег", hero[6])
-    print("Урон", hero[7])
-    print("Зелий", hero[8])
-    print(" ")
+    print("Очки мудрости", hero[6])
+    print("Денег", hero[7])
+    print("Урон", hero[8])
+    print("Зелий", hero[9])
+    print("")
+    
 
-
+#функция повыешния уровня
 def level_up(hero):
-    while hero:
+    while hero[3]>=hero[4]:
         hero[5] += 1
-        hero[4] = 468 * (hero[5] *2)# TODO: xp до след уровня считается автоматичски в зависимости от текущего
-        print(f"{hero[0]} получил {hero[5]} уровень")
+        hero[6] += 1
+        hero[4] = 468 * (hero[5] *2)
+    #изменение статов
+    while hero[6] > 0:
+        print(f"Сейчас у вас {hero[6]} очков мудрости") 
+        print("Введите 1 что бы поысить максимум жизней")
+        print("Введите 2 что бы повысить урон")
+        stat = input('Выберите характеристику для повышения')
 
+        if stat == "1":
+            hero[1] += 10
+            hero[1] = hero[2]
+            hero[6] -= 1
+            input('Максимум здоровья был повышен. Нажмите любую кнопку что бы продолжить')
+            show_hero(p2)
+            input("")
+            system('cls')
 
+        if stat == "2":
+            hero[8] += 10
+            hero[6] -= 1
+            input('Урон был повышен. Нажмите любую кнопку что бы продолжить')
+            show_hero(p2)
+            system('cls') 
+    
+            
 
-
-
-
+#сборка и показ героев
 p1 = make_hero(name="Вася")
 p2 = make_hero(money = 100)
 p3 = make_hero()
@@ -83,23 +110,16 @@ show_hero(p1)
 show_hero(p2)
 show_hero(p3)
 
+input('персонажи созданы')
+system("cls")
 
-'''
-[0]name=None,
-[1]hp_max = None,
-[2]hp_curr = None,
-[3]xp_now = 0,
-[4]xp_next = None,
-[5]lvl = 1,
-[6]money = None,
-[7]damage=None,
-[8]potion=None,
 
-'''
+#выдача опыта игроку 2 и вызов функции повышения уровня
 p2[3] += 10000
-
 level_up(p2)
 
+
+#показ героев после изменений
 show_hero(p1)
 show_hero(p2)
 show_hero(p3)
