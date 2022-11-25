@@ -85,25 +85,28 @@ def level_up(hero):
 
         if stat == "1":
             hero[1] += 10
-            hero[1] = hero[2]
+            hero[2] = hero[1]
             hero[6] -= 1
             input('Максимум здоровья был повышен. Нажмите любую кнопку что бы продолжить')
-            show_hero(p2)
+            system('cls')
+            show_hero(hero)
             input("")
             system('cls')
 
-        if stat == "2":
+        elif stat == "2":
             hero[8] += 10
             hero[6] -= 1
             input('Урон был повышен. Нажмите любую кнопку что бы продолжить')
-            show_hero(p2)
+            system('cls')
+            show_hero(hero)
+            input("")
             system('cls') 
-    
             
-
+            
+"""
 #сборка и показ героев
 p1 = make_hero(name="Вася")
-p2 = make_hero(money = 100)
+p2 = make_hero(money=100)
 p3 = make_hero()
 
 show_hero(p1)
@@ -123,3 +126,4 @@ level_up(p2)
 show_hero(p1)
 show_hero(p2)
 show_hero(p3)
+"""
