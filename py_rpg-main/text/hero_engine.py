@@ -67,6 +67,7 @@ def show_hero(hero):
     print("Денег", hero[7])
     print("Урон", hero[8])
     print("Зелий", hero[9])
+    print("Инвентарь", hero[10])
     print("")
     
 
@@ -76,7 +77,9 @@ def level_up(hero):
         hero[5] += 1
         hero[6] += 1
         hero[4] = 468 * (hero[5] *2)
-    #изменение статов
+    stat_changer(hero)
+
+def stat_changer(hero):
     while hero[6] > 0:
         print(f"Сейчас у вас {hero[6]} очков мудрости") 
         print("Введите 1 что бы поысить максимум жизней")
@@ -101,29 +104,12 @@ def level_up(hero):
             show_hero(hero)
             input("")
             system('cls') 
+
+
+
             
-            
-"""
+
+
+
+
 #сборка и показ героев
-p1 = make_hero(name="Вася")
-p2 = make_hero(money=100)
-p3 = make_hero()
-
-show_hero(p1)
-show_hero(p2)
-show_hero(p3)
-
-input('персонажи созданы')
-system("cls")
-
-
-#выдача опыта игроку 2 и вызов функции повышения уровня
-p2[3] += 10000
-level_up(p2)
-
-
-#показ героев после изменений
-show_hero(p1)
-show_hero(p2)
-show_hero(p3)
-"""

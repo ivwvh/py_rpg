@@ -1,85 +1,76 @@
-import os
-import shop #импортируем shop.py
-import shaman #импортируем shaman.py
-import battle #импортируем battle.py
-import hero_engine
-import random #импортируем модуль random
+from os import system
+from hero_engine import *
+from shop import *
+from battle import *
 
 
+def play_dice(hero, bet):
+    if bet > 0:
+        if bet <= hero[7]:
+            hero_score = randint(2, 12)
+            casino_score = randint(2, 12)
+            print(f"Игрок выбросил: {hero_score},казино выбрасывает: {casino_score} ")
+            if hero_score > casino_score:
+                hero[7] += bet
+                print("Игрок победил")
 
-def show_menu():
-    """
-    показ главного меню
+            elif hero_score < casino_score:
+                hero[7] -= bet
+                print("казино победило")
+            else:
+                print("ничья")
 
-    из него начинается игра или заканчивается программа
-    TODO:
-        сохранение/загрузка
-        настройки: цвет текста
+        else:
+            print("У героя не хватает денег")
+    else:
+        print("Такая ставка невозможна, Ставки принимаются от 1 монет")
 
-    """
-
-    #главный цикл меню
-    while True:
-        os.system("cls")
-        print("1-Начать новую игру")
-        print("2-Выйти")
-        answer = input("Номер ответа: ")
-        if answer == "1":
-            create_heroes()
-            break
-        elif answer == "2":
-            print('Выхожу')
-            break
-    print("Выходим из меню.Пока.")
-
-
-
-
-def create_heroes():
-    player = hero_engine.main_char()
-    enemy = hero_engine.make_enemy()
-    start_game(player,enemy)
-
-
-def start_game(player, enemy):
-    '''
-    начинает игру
-    принимает значения из create_char
-    '''
-
-    #цикл игры
-    is_game = True
-    while is_game:
-        os.system("cls")
-        print(f"Имя: {player[0]}")
-        print(f"Жизни: {player[1]}")
-        print(f"Опыт: {player[2]}")
-        print(f"Деньги: {player[3]}")
-        print(f"Урон: {player[4]}")
-        print(f"Зелья {player[5]}")
-        input("Нажмите ENTER для продолжения")
-        os.system("cls")
-        print(f"""
-            {player[0]} оказывается у камня
-        1 - Поехать на битву с разбойниками
-        2 - Поехать к шаману
-        3 - Поехать в лавку алхимика
-            """)
-        choice = input("Куда поедем ?: ")
-        if choice == "1":
-            print("Поехал к разбойникам")
-            player = battle.encounter(player, enemy)
-
-        elif choice == "2":
-            print("Поехал к шаману")
-            player = shaman.shaman_game(player)
-
-        elif choice == "3":
-            print("Поехал к алхимику")
-            player = shop.shop(player)
+def consume_item(hero: list, idx: int):
+    if idx <= len(hero[10]) - 1 and idx > -1:
+        print(f"{hero[0]} употребил {hero[10][idx]}\n")
+        if hero[10][idx] =="зелье":
+            hero[10].pop(0)
+            hero[2] += 10
+            if hero[2] + 10 > 100:
+                hero[2] = hero[1]
+        elif hero[10][idx] == "яблоко":
+            pass
+        else:
+            print("")
+            hero[12].pop(idx)
+    else:
+        print("Предмета нет")
 
 
+def level_up(hero):
+    while hero[3]>=hero[4]:
+        hero[5] += 1
+        hero[6] += 1
+        hero[4] = 468 * (hero[5] *2)
+    stat_changer(hero)
 
-show_menu()
+def stat_changer(hero):
+    while hero[6] > 0:
+        print(f"Сейчас у вас {hero[6]} очков мудрости") 
+        print("Введите 1 что бы поысить максимум жизней")
+        print("Введите 2 что бы повысить урон")
+        stat = input('Выберите характеристику для повышения')
 
+        if stat == "1":
+            hero[1] += 10
+            hero[2] = hero[1]
+            hero[6] -= 1
+            input('Максимум здоровья был повышен. Нажмите любую кнопку что бы продолжить')
+            system('cls')
+            show_hero(hero)
+            input("")
+            system('cls')
 
+        elif stat == "2":
+            hero[8] += 10
+            hero[6] -= 1
+            input('Урон был повышен. Нажмите любую кнопку что бы продолжить')
+            system('cls')
+            show_hero(hero)
+            input("")
+            system('cls') 

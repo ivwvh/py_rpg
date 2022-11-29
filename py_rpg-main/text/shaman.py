@@ -1,5 +1,7 @@
 import random
 import os
+
+
 def shaman_game(player):
     tries = 5
     shaman_event = True

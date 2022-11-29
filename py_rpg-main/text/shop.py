@@ -1,44 +1,33 @@
 import os  
 
 
-def shop(player:tuple) -> tuple:
-    # player = (player_name, player_hp, player_xp, player_money, player_damage, player_potion)
-    money = player[3]
-    potions = player[5]
-    in_shop = True
-    while in_shop:
-        os.system("cls")
-        print(f"Имя: {player[0]}")
-        print(f"Жизни: {player[1]}")
-        print(f"Опыт: {player[2]}")
-        print(f"Деньги: {money}")
-        print(f"Урон: {player[4]}")
-        print(f"Зелья {potions}")
-        input("Нажмите ENTER для продолжения")
-        print(f"""
-                {player[0]} оказывается в магазине алхимика
-            1 - Купить зелье за 10 монет
-            2 - Поехать к камню
-                """)
-        answer = input("")
-        if answer == "1" and money > 0:
-            potions += 1
-            money -= 10
-            print("Купил одно зелье")
-            input("Нажмите ENTER что бы продолжить")
-            os.system("cls")
-            
-        elif answer == "1" and money <= 0:
-            print("Нет денег")
-            input("Нажмите ENTER что бы продолжить")
-            
-        elif answer == "2":
-            return player[0], player[1],player[2], money, player[4], potions
-            #  (player[0], money, player_hp, player_xp, player_potions, player_damage)
-            
+def buy_item(hero: list, item: str, price: int):
+    if hero[7] >= price:
+        hero[10].append(item)
+        hero[7] -= price
+        print(f'Вы купили {item}')
+    else:
+        print(f"Вам не хватает {price-hero[7]} монет")
 
 
 
 
 
             
+
+
+
+
+"""
+[0]name - имя,
+[1]hp_max - максимальное кол-во жизней,
+[2]hp_curr- текущее кол-во жизней,
+[3]xp_now - текущий опыт,
+[4]xp_next - опыта до след. уровня,
+[5]lvl - текущий уровень,
+[6]knowleage_points - очки мудрости, выдаются при повышении уровня и используются для изменения параметров,
+[7]money - деньги,
+[8]damage - урон,
+[9]potion - зелья,
+"""
+
