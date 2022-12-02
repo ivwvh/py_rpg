@@ -63,7 +63,11 @@ def combat(hero):
 def combat_result(hero, enemy):
     print(f"получил {enemy[3]} опыта")
     print(f"получил {enemy[7]} денег")
-    print(f"забирает предметы ")
+    print(f"{hero[0]} забирает предметы: ", end="")
+
+    for item in enemy[10]:
+        print(item, end =", ")
+
     hero[3] += enemy[3]
     hero[7] += enemy[7]
     hero[10] += enemy[10]
