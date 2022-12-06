@@ -2,12 +2,16 @@ import os
 
 
 def buy_item(hero: list, item: str, price: int):
+    os.system("cls")
     if hero[7] >= price:
         hero[10].append(item)
         hero[7] -= price
         print(f'Вы купили {item}')
     else:
         print(f"Вам не хватает {price-hero[7]} монет")
+
+    input("\nНажмите ENTER чтобы продолжить")
+
 
 
 
