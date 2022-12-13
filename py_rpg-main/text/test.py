@@ -3,6 +3,6 @@ from shop import *
 from battle import *
 from main import *
 
-player = make_hero(hp_curr=1,money=999999, inventory=['меч','лук','зелье'])
+player = make_hero(name="Вася Питонов",hp_max=100,money=999999, inventory=['меч','лук','зелье'])
 game = True
-combat(player)
+visit_hub(player)

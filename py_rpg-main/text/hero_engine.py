@@ -38,7 +38,7 @@ def make_hero(name=None,
     if not name:
         name = choice(first_name) + " " + choice(last_name)
     if not hp_max:
-        hp_max = randint(1,10)
+        hp_max = randint(1,100)
     if not hp_curr:
         hp_curr = hp_max
     if not xp_next:
@@ -69,7 +69,7 @@ def show_hero(hero):
     print("Зелий", hero[9])
     print("Инвентарь", hero[10])
     print("")
-    input("Нажмите любую кнопку что бы продолжить")
+
     
 
 #функция повыешния уровня
