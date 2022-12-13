@@ -3,7 +3,7 @@ from hero_engine import *
 from shop import *
 from battle import *
 """
-FIXME: 9 строка str is not callable
+FIXME: 18 строка str is not callable
 """
 def show_inventory(hero:list)->None:
     '''
