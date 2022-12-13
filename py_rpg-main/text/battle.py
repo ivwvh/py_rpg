@@ -31,7 +31,7 @@ def combat(hero):
         print(f"Зелья: {hero[9]}")
         print("""
         1-Cражаться
-        2-Использовать зелье""")
+        2-Использовать предмет""")
         choice_1=input("Что делать будем?: ")
         os.system("cls")
         if choice_1 == "1":
@@ -52,10 +52,10 @@ def combat(hero):
                     combat_result(hero, enemy)
                     
         elif choice_1 == "2" and hero[9] > 0:
-                hero[9] -= 1
-                hero[2] += 10
-                if hero[2]>hero[1]: hero[2] = hero[1]
-                input("Нажмите ENTER что бы продолжить")
+                show_inventory(hero)
+                print('что использовать будем?')
+                item_choice = int(input("Введите цифру ответа: "))
+                consume_item(hero, item_choice)
         elif choice_1 == "2" and hero[9] < 0:
             print("недостаточно зелий")
             input("Нажмите ENTER что бы продолжить")

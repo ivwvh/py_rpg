@@ -5,6 +5,13 @@ from battle import *
 """
 FIXME: 9 строка str is not callable
 """
+def show_inventory(hero:list)->None:
+    '''
+    нужна для показа инвентаря кого-либо(игрок/враг)
+    '''
+    for item in enumerate(hero[10]):
+        print(*item)
+
 
 def play_dice(hero:list, bet:str)->None:
     try:
@@ -50,8 +57,8 @@ def consume_item(hero: list, idx: int):
             hero[2] += 1000
             hero[10].pop(idx)
         else:
-            print("")
-            hero[12].pop(idx)
+            print("Употребил что-то")
+            hero[10].pop(idx)
     else:
         print("Предмета нет")
 
@@ -124,6 +131,7 @@ def visit_hub(hero:list) -> None:
     'Ехать к алхимику',
     'Поехать в таверну',
     'Показать героя',
+    'Ехать к разбойникам',
     'Выйти в главное меню'
     ]
     hub_option = choose_option(hero, text, options)
@@ -135,7 +143,9 @@ def visit_hub(hero:list) -> None:
     elif hub_option == 2:
         return(show_hero(hero))
     elif hub_option == 3:
-        print("Ушли в меню")
+        return(combat(hero))
+    elif hub_option == 4:
+        print('ушли в меню')
     input('Нажмите ENTR чтобы продолжить')
 
 
