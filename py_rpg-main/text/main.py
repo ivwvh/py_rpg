@@ -17,12 +17,17 @@ def combat_turn(attacker:list, defender:list):
    defender[2] -= attacker[8]  
 
 
-def combat(hero):
+#def visit_cole(hero):
+#    enemy = make_hero(damage=0, xp_now=1000000, inventory=["орочий меч", "конь"])
+#    show_hero(hero)
+#    show_hero(enemy)
+#   return combat(hero)
 
+
+def combat(hero):
     enemy = make_hero(damage=0, xp_now=1000000, inventory=["орочий меч", "конь"])
     show_hero(hero)
     show_hero(enemy)
-
     while hero[2] > 0 and enemy[2] > 0:
         text='Сражение началось'
         options = ['Ударить',
@@ -38,9 +43,8 @@ def combat(hero):
         show_hero(hero)
         show_hero(enemy)
         if battle_option == 1:
-            show_options(hero, hero[10])
-            option = choose_option(hero, hero[10])
-            consume_item(hero, option)
+            print(options)
+            consume_item(hero)
     combat_result(hero,enemy)
        
 
@@ -97,8 +101,8 @@ def play_dice(hero:list, bet:str)->None:
     
 
 def consume_item(hero: list):
-    show_options(hero)
-    idx = choose_option(hero,hero, hero[10])
+    show_options(hero, hero[10])
+    idx = choose_option(hero, hero[10])
     # TODO: Не засчитывать плохой выбор за ход в бою
     if idx is not None:
         if idx <= len(hero[10]) - 1 and idx > -1:
@@ -118,7 +122,6 @@ def consume_item(hero: list):
             print("Предмета нет")
     else:
         pass
-
 
 
 def level_up(hero):
@@ -156,7 +159,7 @@ def stat_changer(hero:list) -> None:
             input("")
             system('cls') 
         elif stat == "3":
-            return visit_hub
+            return visit_hub(hero)
 
 
 def choose_option(hero: list, options:list) -> int:
@@ -172,11 +175,13 @@ def choose_option(hero: list, options:list) -> int:
         option = int(option)
     except ValueError:
         print("Ввод должен быть целым числом и не должен быть отрицательным")
+        return choose_option(hero, options)
     else:
         if option < len(options) and option > -1:
             return option
         else:
             print("недопустимое число")
+            return choose_option(hero, options)
 
 
 def visit_hub(hero:list) -> None:
@@ -208,9 +213,9 @@ def visit_hub(hero:list) -> None:
     input('Нажмите ENTR чтобы продолжить')
 
 
-def show_options(hero:list,options:list)->None:
+def show_options(hero:list, options:list) -> None:
     for num, option in enumerate(options):
-            print(f"{num}. {option}")
+        print(f"{num}. {option}")
 
 
 def visit_shop(hero:list) -> None:
@@ -220,15 +225,17 @@ def visit_shop(hero:list) -> None:
     'Купить зелье опыта за 30 монет',
     'Выйти из лавки в хаб'
     ]
-    shop_option = choose_option(hero, text, options)
-    if shop_option == 0:
-        buy_item(hero, "зелье лечения", 10)
-        return(visit_shop(hero))
-    elif shop_option == 1:
-        buy_item(hero, "зелье опыта", 30)
-        return(visit_shop(hero))
+    show_hero(hero)
+    show_options(hero, options)
+    shop_option = choose_option(hero, options)
+    if shop_option == 1:
+        buy_item(hero, "зелье", 10)
+        return visit_shop(hero)
     elif shop_option == 2:
-        return(visit_hub(hero))
+        buy_item(hero, "зелье опыта", 30)
+        return visit_shop(hero)
+    elif shop_option == 3:
+        return visit_hub(hero)
 
 
 def visit_inn(hero:list) -> None:
@@ -250,6 +257,7 @@ def visit_inn(hero:list) -> None:
     elif inn_option == 2:
         return(visit_hub(hero))
 
+
 def rest(hero: list, cost: int) -> None:
     hero[7] -= cost
     hero[2] = hero[1]
@@ -259,3 +267,16 @@ def rest(hero: list, cost: int) -> None:
 
 def show_stat(hero, idx):
     pass
+
+
+def buy_item(hero: list, item: str, price: int):
+    os.system("cls")
+    if hero[7] >= price:
+        hero[10].append(item)
+        hero[7] -= price
+        print(f'Вы купили {item}')
+        return visit_shop(hero)
+    else:
+        print(f"Вам не хватает {price-hero[7]} монет")
+
+    input("\nНажмите ENTER чтобы продолжить")
