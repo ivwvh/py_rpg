@@ -32,7 +32,7 @@ list_2 = []
 print(list_1)
 print(list_2)
 input("До экипировки")
-equip_o_matic3000(list_1, list_2)
+equip_item(list_1, list_2)
 
 print(list_1)
 print(list_2)
