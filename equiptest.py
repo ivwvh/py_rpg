@@ -198,3 +198,14 @@ def inventory_test(hero):
         use_item(hero, hero["Инвентарь"][item])
     else:
         print("Выходим...")
+
+
+armor = generate_item("Броня из кожи дракона", 'armor', 9999, "броня", 1000)
+armor1 = generate_item("Броня не из кожи дракона", 'armor', 1, "броня", 1000)
+sword = generate_item("Меч всем головы отсечь", 'sword', 9999, "меч", 1000)
+potion = generate_item("Зелье лечения", "consumable", 10, "зелье", 1000)
+
+player = make_hero(inventory=[armor, sword, potion], armor_slot=[armor1])
+inventory_test(player)
+show_hero(player)
+
