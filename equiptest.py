@@ -1,9 +1,8 @@
 from random import randint
 import os
 
-"""
-TODO: Красивое отображение предметов в инвентаре и в момент выбора
-"""
+
+# TODO: Красивое отображение предметов в инвентаре и в момент выбора
 
 
 def make_hero(name=None,
@@ -102,7 +101,11 @@ def show_item(item: dict):
                   f"цена продажи: {item['цена продажи']}")
 
 
-def generate_item(name: str, type: str, modifier: int, klass: str, sell_price: int) -> dict:
+def generate_item(name: str,
+                  type: str,
+                  modifier: int,
+                  klass: str,
+                  sell_price: int) -> dict:
     """
     занимается созданием предметов
     """
@@ -153,7 +156,7 @@ def show_inventory(hero: list) -> None:
         print(item)
 
 
-def choose_option(hero: list, options:list) -> int:
+def choose_option(hero: list, options: list) -> int:
     """
     показывает варианты
     получает ввод  пользователя
@@ -173,7 +176,7 @@ def choose_option(hero: list, options:list) -> int:
             return choose_option(hero, options)
 
 
-def show_options(hero:list, options:list) -> None:
+def show_options(hero: list, options: list) -> None:
     """
     показывает варианты для выбора
     """
@@ -202,10 +205,9 @@ def inventory_test(hero):
 
 armor = generate_item("Броня из кожи дракона", 'armor', 9999, "броня", 1000)
 armor1 = generate_item("Броня не из кожи дракона", 'armor', 1, "броня", 1000)
-sword = generate_item("Меч всем головы отсечь", 'sword', 9999, "меч", 1000)
+sword = generate_item("Меч всем головы отсечь", 'weapon', 9999, "меч", 1000)
 potion = generate_item("Зелье лечения", "consumable", 10, "зелье", 1000)
 
 player = make_hero(inventory=[armor, sword, potion], armor_slot=[armor1])
 inventory_test(player)
 show_hero(player)
-
